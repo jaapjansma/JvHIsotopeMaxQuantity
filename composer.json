@@ -1,0 +1,19 @@
+{
+  "name":"jvh/isotope-max-quantity-bundle",
+  "description":"Order a max quantity of one product",
+  "type": "contao-bundle",
+  "license":"AGPL-3.0-or-later",
+  "version": "1.0.0",
+  "require": {
+    "contao/core-bundle": "^4.9",
+    "isotope/isotope-core": "^2.6"
+  },
+  "extra": {
+    "contao-manager-plugin": "JvH\\IsotopeMaxQuantityBundle\\ContaoManager\\Plugin"
+  },
+  "autoload": {
+    "psr-4": {
+      "JvH\\IsotopeMaxQuantityBundle\\": "src/"
+    }
+  }
+}
