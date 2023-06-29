@@ -17,3 +17,5 @@
  */
 
 $GLOBALS['ISO_HOOKS']['itemIsAvailable'][] = [\JvH\IsotopeMaxQuantityBundle\EventListener::class, 'itemIsAvailable'];
+$GLOBALS['ISO_HOOKS']['addProductToCollection'][] = [\JvH\IsotopeMaxQuantityBundle\EventListener::class, 'addProductToCollection'];
+$GLOBALS['ISO_HOOKS']['updateItemInCollection'][] = [\JvH\IsotopeMaxQuantityBundle\EventListener::class, 'updateItemInCollection'];

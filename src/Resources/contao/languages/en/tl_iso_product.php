@@ -16,4 +16,5 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+$GLOBALS['TL_LANG']['tl_iso_product']['jvh_max_quantity_limit_reached'] = 'Maximum of %s allowed';
 $GLOBALS['TL_LANG']['tl_iso_product']['jvh_max_quantity'] = ['Maximum Quantity to order per order', '0 is unlimited'];

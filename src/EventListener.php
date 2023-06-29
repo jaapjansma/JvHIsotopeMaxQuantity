@@ -18,6 +18,9 @@
 
 namespace JvH\IsotopeMaxQuantityBundle;
 
+use Isotope\Interfaces\IsotopeProduct;
+use Isotope\Message;
+use Isotope\Model\ProductCollection;
 use Isotope\Model\ProductCollectionItem;
 
 class EventListener {
@@ -28,9 +31,29 @@ class EventListener {
       if ($item->quantity > $objProduct->jvh_max_quantity) {
         return false;
       }
-      return true;
     }
     return true;
+  }
+
+  public static function addProductToCollection(IsotopeProduct $objProduct, $intQuantity, ProductCollection $collection, $arrConfig) {
+    if ($objProduct && !empty($objProduct->jvh_max_quantity)) {
+      if ($intQuantity > $objProduct->jvh_max_quantity) {
+        Message::addInfo(sprintf($GLOBALS['TL_LANG']['tl_iso_product']['jvh_max_quantity_limit_reached'], $objProduct->jvh_max_quantity));
+        return $objProduct->jvh_max_quantity;
+      }
+    }
+    return $intQuantity;
+  }
+
+  public function updateItemInCollection(ProductCollectionItem $item, $arrSet, ProductCollection $collection) {
+    $objProduct = $item->getProduct();
+    if ($objProduct && !empty($objProduct->jvh_max_quantity)) {
+      if ($item->quantity > $objProduct->jvh_max_quantity) {
+        Message::addInfo(sprintf($GLOBALS['TL_LANG']['tl_iso_product']['jvh_max_quantity_limit_reached'], $objProduct->jvh_max_quantity));
+        $arrSet['quantity'] = $objProduct->jvh_max_quantity;
+      }
+    }
+    return $arrSet;
   }
 
 }
