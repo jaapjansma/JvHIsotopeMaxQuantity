@@ -45,7 +45,7 @@ class EventListener {
       }
       if ($count > $objProduct->jvh_max_quantity) {
         Message::addInfo(sprintf($GLOBALS['TL_LANG']['tl_iso_product']['jvh_max_quantity_limit_reached'], $objProduct->jvh_max_quantity));
-        return $objProduct->jvh_max_quantity;
+        return 0;
       }
     }
     return $intQuantity;
