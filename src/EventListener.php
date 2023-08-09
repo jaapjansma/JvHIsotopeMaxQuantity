@@ -37,7 +37,13 @@ class EventListener {
 
   public static function addProductToCollection(IsotopeProduct $objProduct, $intQuantity, ProductCollection $collection, $arrConfig) {
     if ($objProduct && !empty($objProduct->jvh_max_quantity)) {
-      if ($intQuantity > $objProduct->jvh_max_quantity) {
+      $count = $intQuantity;
+      foreach($collection->getItems() as $objItem) {
+        if ($objItem->getProduct()->id == $objProduct->getId()) {
+          $count += $objItem->quantity;
+        }
+      }
+      if ($count > $objProduct->jvh_max_quantity) {
         Message::addInfo(sprintf($GLOBALS['TL_LANG']['tl_iso_product']['jvh_max_quantity_limit_reached'], $objProduct->jvh_max_quantity));
         return $objProduct->jvh_max_quantity;
       }
@@ -48,7 +54,13 @@ class EventListener {
   public function updateItemInCollection(ProductCollectionItem $item, $arrSet, ProductCollection $collection) {
     $objProduct = $item->getProduct();
     if ($objProduct && !empty($objProduct->jvh_max_quantity)) {
-      if ($item->quantity > $objProduct->jvh_max_quantity) {
+      $count = $item->quantity;
+      foreach($collection->getItems() as $objItem) {
+        if ($objItem->getProduct()->id == $objProduct->getId()) {
+          $count += $objItem->quantity;
+        }
+      }
+      if ($count > $objProduct->jvh_max_quantity) {
         Message::addInfo(sprintf($GLOBALS['TL_LANG']['tl_iso_product']['jvh_max_quantity_limit_reached'], $objProduct->jvh_max_quantity));
         $arrSet['quantity'] = $objProduct->jvh_max_quantity;
       }
