@@ -53,10 +53,12 @@ class EventListener {
 
   public function updateItemInCollection(ProductCollectionItem $item, $arrSet, ProductCollection $collection) {
     $objProduct = $item->getProduct();
+    $count = 0;
     if ($objProduct && !empty($objProduct->jvh_max_quantity)) {
-      $count = $item->quantity;
       foreach($collection->getItems() as $objItem) {
-        if ($objItem->getProduct()->id == $objProduct->getId()) {
+        if ($objItem->id == $item->id) {
+          $count += $item->quantity;
+        } elseif ($objItem->getProduct()->id == $objProduct->getId()) {
           $count += $objItem->quantity;
         }
       }
