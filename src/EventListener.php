@@ -25,14 +25,14 @@ use Isotope\Model\ProductCollectionItem;
 
 class EventListener {
 
-  public static function itemIsAvailable(ProductCollectionItem $item) {
+  public static function itemIsAvailable(ProductCollectionItem $item):? bool {
     $objProduct = $item->getProduct();
     if ($objProduct && !empty($objProduct->jvh_max_quantity)) {
       if ($item->quantity > $objProduct->jvh_max_quantity) {
         return false;
       }
     }
-    return true;
+    return null;
   }
 
   public static function addProductToCollection(IsotopeProduct $objProduct, $intQuantity, ProductCollection $collection, $arrConfig) {
